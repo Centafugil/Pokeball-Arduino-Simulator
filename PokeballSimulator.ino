@@ -10,9 +10,26 @@ enum State{
   ESCAPED
 };
 
+struct Color {
+  int red;
+  int green;
+  int blue;
+};
+
+
+Color red;
+Color green;
+Color blue;
+Color orange;
+Color yellow;
+Color purple;
+Color white;
+
+
 
 const int redLed = 11;
 const int greenLed = 6;
+const int blueLed = 9;
 
 
 void setup(){
@@ -25,13 +42,36 @@ void setup(){
 
   digitalWrite(greenLed, HIGH);
 
+
+
+  // orange colour RGB values
+  orange.red = 255;
+  orange.green = 35;
+  orange.blue = 0;
+
+  // Red colour RGB values
+  red.red = 255;
+  red.green = 0;
+  red.blue = 0;
+
+  // Green colour RGB values
+  green.red = 0;
+  green.green = 255;
+  green.blue = 0;
+
+  // blue colour RGB values
+  
+  blue.red = 0;
+  blue.green = 0;
+  blue.blue = 255;
+
 }
 
 
 
 
 int roll;
-int catchRate = 35;
+int catchRate = 95;
 
 
 
@@ -72,11 +112,21 @@ void ledControl(bool state){
 
 
 
-void fadeInAnimation(int time, int pin){
+void fadeInAnimation(int time, Color colour){
 
-  for(int i = 0; i <= 255 ; i++){
+  for(int brightness = 0; brightness <= 255 ; brightness++){
     
-    analogWrite(pin, i);
+    int red = colour.red * brightness/255;
+    int green = colour.green * brightness/255;
+    int blue = colour.blue * brightness/255;
+
+
+    analogWrite(redLed, 255 - red );
+    analogWrite(greenLed, 255 -green);
+    analogWrite(blueLed, 255 - blue);
+
+
+
     delay(time);
   }
 }
@@ -113,27 +163,27 @@ void loop(){
 
     case THROWING:
 
-     fadeInAnimation(15, redLed); // (delay, pin)
+     fadeInAnimation(20, red ); // (delay, Colour )
      pokeballState = SHAKE1;
      delay(1000);
       Serial.println("THROWING");
       break;
 
     case SHAKE1:
-      fadeInAnimation(5, redLed);
+      fadeInAnimation(5, red);
       Serial.println("SHAKE1");
       pokeballState = SHAKE2;
       break;
 
     case SHAKE2:
-      fadeInAnimation(3, redLed);
+      fadeInAnimation(5, red);
       pokeballState = SHAKE3;
       Serial.println("SHAKE 2");
       break;
     
     case SHAKE3:
       
-      fadeInAnimation(8, redLed);
+      fadeInAnimation(8, red);
       Serial.println("SHAKE 3");
       roll = random(100);
       
@@ -158,10 +208,16 @@ void loop(){
       Serial.println(roll);
       Serial.println("Catch");
 
-      fadeOutAnimation(1000, greenLed);
+      fadeInAnimation(100, green);
+
       break;
 
     case ESCAPED:
+      Serial.println("Escaped");
+      fadeInAnimation(11, orange);
+      
+
+      
       
       break;
       
