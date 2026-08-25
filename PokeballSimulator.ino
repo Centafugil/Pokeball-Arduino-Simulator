@@ -26,6 +26,20 @@ Color purple;
 Color white;
 
 
+struct Pokemons{
+  
+  int spawnThreshold;
+  int catchRate;
+  int pokemonID;   //pokemonID is 0 to 4
+};
+
+Pokemons bidoof;
+Pokemons pikachu;
+Pokemons beldum;
+Pokemons garchomp;
+Pokemons mewtwo;
+Pokemons currentPokemon;
+
 
 const int redLed = 11;
 const int greenLed = 6;
@@ -65,13 +79,54 @@ void setup(){
   blue.green = 0;
   blue.blue = 255;
 
+  //Yellow color RGB values
+
+  yellow.red = 255;
+  yellow.green = 255;
+  yellow.blue = 0;
+
+  //White color RGB values
+
+  white.red = 255;
+  white.green = 255;
+  white.blue = 255;
+
+  //Purple color RGB values
+
+  purple.red = 162;
+  purple.green = 0;
+  purple.blue = 255;
+
+
+  // pokemon attributes
+
+  bidoof.catchRate = 45;
+  bidoof.spawnThreshold = 75;
+  bidoof.pokemonID = 0;
+
+  pikachu.catchRate = 20;
+  pikachu.spawnThreshold = 85;
+  pikachu.pokemonID = 1;
+
+  beldum.catchRate = 10;
+  beldum.spawnThreshold = 92;
+  beldum.pokemonID = 2;
+
+  garchomp.catchRate = 8;
+  garchomp.spawnThreshold = 97;
+  garchomp.pokemonID = 3;
+
+  mewtwo.catchRate = 3;
+  mewtwo.spawnThreshold = 100;
+  mewtwo.pokemonID = 4;
 }
 
 
 
 
-int roll;
-int catchRate = 95;
+int spawnRoll;
+int catchRoll;
+
 
 
 
@@ -131,14 +186,23 @@ void fadeInAnimation(int time, Color colour){
   }
 }
 
-void fadeOutAnimation(int time, int pin){
 
-  for(int i = 255; i >= 0 ;i--){
+void pokemonSpawner(){
 
-    analogWrite(pin, i);
-    delay(time);
+  if(spawnRoll < bidoof.spawnThreshold){
+    currentPokemon = bidoof;
+  }else if(spawnRoll >= bidoof.spawnThreshold && spawnRoll <= pikachu.spawnThreshold){
+    currentPokemon = pikachu;
+  }else if(spawnRoll > pikachu.spawnThreshold && spawnRoll <= beldum.spawnThreshold){
+    currentPokemon = beldum;
+  }else if(spawnRoll > beldum.spawnThreshold && spawnRoll <= garchomp.spawnThreshold){
+    currentPokemon = garchomp;
+  }else if(spawnRoll > garchomp.spawnThreshold && spawnRoll <= mewtwo.spawnThreshold){
+    currentPokemon = mewtwo;
   }
 }
+
+
 
 void loop(){
 
@@ -185,30 +249,35 @@ void loop(){
       
       fadeInAnimation(8, red);
       Serial.println("SHAKE 3");
-      roll = random(100);
-      
+      spawnRoll = random(101);
+      catchRoll = random(101);
 
-      
-      if(roll < catchRate){
-        
+      pokemonSpawner();
+
+
+      Serial.println("Pokemon:");
+      Serial.println(currentPokemon.pokemonID);
+
+
+
+      if(catchRoll < currentPokemon.catchRate){
         pokeballState = CAUGHT;
-
       }else{
-        Serial.println("Escaped and fled");
-        
         pokeballState = ESCAPED;
-
-        
-        
       }
-
+      
       break;
-    
+
     case CAUGHT:
-      Serial.println(roll);
+      Serial.println(catchRoll);
+      Serial.println(spawnRoll);
       Serial.println("Catch");
 
       fadeInAnimation(100, green);
+
+      delay(500);
+
+      pokeballState = IDLE;
 
       break;
 
@@ -216,8 +285,19 @@ void loop(){
       Serial.println("Escaped");
       fadeInAnimation(11, orange);
       
-
+      Serial.println(catchRoll);
+      Serial.println(spawnRoll);
       
+      delay(500);
+
+      pokeballState = IDLE;
+      
+      break;
+
+    case RESULT:
+      
+      
+
       
       break;
       
