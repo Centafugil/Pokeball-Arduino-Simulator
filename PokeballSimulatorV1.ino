@@ -51,6 +51,7 @@ const int blueLed = 9;
 void setup(){
   pinMode(11, OUTPUT); //red led
   pinMode(6, OUTPUT); //green LED
+  pinMode(9, OUTPUT); //Blue LED
   pinMode(4, INPUT_PULLUP);
   Serial.begin(9600);
 
