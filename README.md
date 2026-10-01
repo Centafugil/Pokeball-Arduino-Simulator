@@ -1,111 +1,106 @@
+# Pokéball Arduino Simulator
 
-# Pokeball-Arduino-Simulator
-A pokeball (an item from an pokemon animator) catching sequence simulator using arduino 
+A Pokéball catching-sequence simulator built with Arduino, inspired by Pokémon.
 
+I wanted to combine something I loved—Pokémon—with something I am learning as an engineer: building interactive embedded systems.
 
-Description:
-   - It is a small project that includes the main function of the pokeball
-   - This project reflects the basic pokeball logic of pokemon catching
-   - It includes 5 pokemons of different spawn rates and different catch rate
-   - I loved pokemon a lot and i am an engineer too so i wanted to create a thing that concides with each other
-   - The hardest part for me is the integration of catch and spawn rate
-   
+## Description
 
+This project simulates the basic logic of a Pokéball catching sequence.
 
+The simulator contains **5 different Pokémon**, each with different:
 
-FEATURES :
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> f90fdf8 (Improved the README file for better readability)
-   - Pokeball shake animation through blinking LEDs
-   - Different pokemon rarity has different led indicator at the end (RESULT)
-   - 5 pokemons can be obtained 
-   - It has catch rate for catching pokemon
-   - It also calculates spawn rate to choose which pokemon is chosen for catching
-   - It has different states for easy flow
-   - only supports RGB leds (single)
-<<<<<<< HEAD
-=======
-    - Pokeball shake animation through blinking LEDs
-    - Different pokemon rarity has different led indicator at the end (RESULT)
-    - 5 pokemons can be obtained 
-    - It has catch rate for catching pokemon
-    - It also calculates spawn rate to choose which pokemon is chosen for catching
-    - It has different states for easy flow
-    - only supports RGB leds (single)
->>>>>>> 57d3109 (Completed the pokeball sim V1 + Added README file + CIRCUIT DIG)
-=======
->>>>>>> f90fdf8 (Improved the README file for better readability)
+- Spawn rates
+- Catch rates
+- Rarity-based result animations
 
+The main challenge of the project was integrating the **spawn-rate system and catch-rate system** into a single catching sequence.
 
+## Features
 
-HARDWARE:
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> f90fdf8 (Improved the README file for better readability)
-   - ARDUINO UNO R3   x1
-   - RGB leds         x1
-   - Push Button      x1
-   - Resistor 220ohm  x1
-   - Jumper Wire      x1
-<<<<<<< HEAD
-=======
-    - ARDUINO UNO R3   x1
-    - RGB leds         x1
-    - Push Button      x1
-    - Resistor 220ohm  x1
-    - Jumper Wire      x1
->>>>>>> 57d3109 (Completed the pokeball sim V1 + Added README file + CIRCUIT DIG)
-=======
->>>>>>> f90fdf8 (Improved the README file for better readability)
+- OLED-based catching animation using bitmaps
+- 5 different Pokémon that can be obtained
+- Different Pokémon rarities
+- Individual spawn rates for Pokémon
+- Individual catch rates
+- Catching sequence with multiple states
+- Different result sprites depending on the Pokémon obtained
+- Button-controlled interaction
+- State-based program flow
 
+## Hardware
 
-CIRCUIT:
+- Arduino Uno R3 × 1
+- SH1106G OLED display × 1
+- Push button × 1
+- Jumper wires
 
-    ![alt text](image.png)
+## How It Works
 
+The simulator uses different states to control the Pokéball sequence.
 
-USUAGE:
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> f90fdf8 (Improved the README file for better readability)
-   - To use first press button while its in IDLE state
-   - After that "The led will turn on" going into READY TO THROW STATE
-   - then another press will intiate the catching sequence
-   - Then after catching sequence based on the catch and spawn rate you will have a RESULT
-<<<<<<< HEAD
+### 1. Selection State
 
-FUTURE IMPROVEMENTS:
-   - Much better Animations
-   - Refactoring code with better techniques
-   - Add a buzzer for more immersive experience
-   - Add a OLED display for visual interaction
-   - Add a movable platform to simulate pokeball shake
-   - Create a 3d printed shell for proper pokeball
-=======
-    - To use first press button while its in IDLE state
-    - After that "The led will turn on" going into READY TO THROW STATE
-    - then another press will intiate the catching sequence
-    - Then after catching sequence based on the catch and spawn rate you will have a RESULT
+The Pokéball starts in the selection state.
 
-FUTURE IMPROVEMENTS:
-    - Much better Animations
-    - Refactoring code with better techniques
-    - Add a buzzer for more immersive experience
-    - Add a OLED display for visual interaction
-    - Add a movable platform to simulate pokeball shake
-    - Create a 3d printed shell for proper pokeball
->>>>>>> 57d3109 (Completed the pokeball sim V1 + Added README file + CIRCUIT DIG)
-=======
+A visible indicator is shown on the OLED during this stage.
 
-FUTURE IMPROVEMENTS:
-   - Much better Animations
-   - Refactoring code with better techniques
-   - Add a buzzer for more immersive experience
-   - Add a OLED display for visual interaction
-   - Add a movable platform to simulate pokeball shake
-   - Create a 3d printed shell for proper pokeball
->>>>>>> f90fdf8 (Improved the README file for better readability)
+Pressing the button moves the simulator to the next state.
+
+### 2. Ready to Throw State
+
+The Pokéball enters the ready-to-throw state.
+
+Pressing the button again starts the catching sequence.
+
+### 3. Catching Sequence
+
+The Pokéball performs the catching animation.
+
+During this process, the simulator determines which Pokémon is selected based on its **spawn rate** and then determines whether the Pokémon is successfully caught using its **catch rate**.
+
+### 4. Result State
+
+The final result is displayed on the OLED.
+
+Different Pokémon and outcomes have different result sprites.
+
+## The Main Challenge
+
+The hardest part of this project was integrating the **spawn rate and catch rate**.
+
+These two systems serve different purposes:
+
+- **Spawn rate:** Determines which Pokémon appears.
+- **Catch rate:** Determines whether the selected Pokémon is successfully caught.
+
+Getting these systems to work together correctly required thinking about the probability logic and how the different states of the Pokéball sequence should interact.
+
+## Completed Improvements
+
+The project has already gone through several improvements:
+
+- Improved the catching animations
+- Refactored parts of the code
+- Added OLED-based visual interaction
+- Improved the overall state-based flow
+
+## Future Improvements
+
+Possible future additions:
+
+- Add a buzzer for a more immersive catching experience
+- Add a movable platform to simulate the Pokéball shaking
+- Design and 3D-print a physical Pokéball shell
+- Further improve the catching animations
+- Continue refactoring and improving the code structure
+
+## Why I Built This
+
+I have always liked Pokémon, and I am also interested in engineering and embedded systems.
+
+This project was an experiment in combining the two: taking something familiar from a game and trying to recreate its logic as a physical interactive system.
+
+## Project Status
+
+**Working — Updated Version**
